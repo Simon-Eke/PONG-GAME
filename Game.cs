@@ -21,9 +21,41 @@ namespace WinFormsApp1
             paddleCollisionCount = 0;
         }
 
+        // Getter for Ball's X_Speed
+        public int GetBallSpeed()
+        {
+            return ball.X_Speed;
+        }
+
+        // Getter for Player 1
+        public Player GetPlayer1()
+        {
+            return player1;
+        }
+
+        // Getter for Player 2
+        public Player GetPlayer2()
+        {
+            return player2;
+        }
+
+        // Getter for Player 1's score
+        public int GetPlayer1Score()
+        {
+            return player1.Score;
+        }
+
+        // Getter for Player 2's score
+        public int GetPlayer2Score()
+        {
+            return player2.Score;
+        }
+
         public void Update()
         {
             ball.Move();
+            player1.UpdateMovement();
+            player2.UpdateMovement();
             DetectCollisions();
         }
 
