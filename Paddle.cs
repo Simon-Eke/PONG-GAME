@@ -22,12 +22,12 @@ namespace WinFormsApp1
         }
 
         // Move the paddle up or down
-        public void Move(int speed)
+        public void Move(int distance)
         {
-            Y_Position += speed;
+            Y_Position += distance;
             // Prevent the paddle from moving out of bounds
             if (Y_Position < 0) Y_Position = 0;
-            if (Y_Position > 400) Y_Position = 400; // Assuming the form height is 450
+            if (Y_Position > (Form1.ActiveForm.ClientSize.Height - Height)) Y_Position = Form1.ActiveForm.ClientSize.Height - Height; // Assuming the form height is 450 and paddle height is 100
         }
 
         // Draw the paddle on the form
