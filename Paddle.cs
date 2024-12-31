@@ -27,12 +27,13 @@ namespace WinFormsApp1
             Y_Position += distance;
             // Prevent the paddle from moving out of bounds
             if (Y_Position < 0) Y_Position = 0;
-            if (Y_Position > (Form1.ActiveForm.ClientSize.Height - Height)) Y_Position = Form1.ActiveForm.ClientSize.Height - Height; // Assuming the form height is 450 and paddle height is 100
+            if (Y_Position > (Form1.ActiveForm.ClientSize.Height - Height)) Y_Position = Form1.ActiveForm.ClientSize.Height - Height; 
         }
 
         // Draw the paddle on the form
         public void Draw(Graphics g)
         {
+            // X-Y-Position is top left corner of the Rectangle
             g.FillRectangle(Brushes.White, X_Position, Y_Position, Width, Height);
         }
     }
