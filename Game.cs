@@ -8,17 +8,25 @@ namespace WinFormsApp1
 {
     internal class Game
     {
+        private Random random;
+
         private Ball ball;
         private Player player1;
         private Player player2;
+
         private int paddleCollisionCount;
+        private int nextCollisionThreshold; // The number of collisions until the speed increases
 
         public Game()
         {
-            ball = new Ball(250, 200, 4, 4);
+            random = new Random(); // Initialize the random generator for later use
+
+            ball = new Ball(300, 225, 4, 4);
             player1 = new Player(20);
             player2 = new Player(780);
-            paddleCollisionCount = 0;
+
+            paddleCollisionCount = 0; // Initialize collision count
+            nextCollisionThreshold = random.Next(3, 7); // Randomly determine when the next speed increase should occur (between 3 and 6 collisions)
         }
 
         // Getter for Ball's X_Speed
@@ -77,11 +85,18 @@ namespace WinFormsApp1
                 DetectPaddleCollision(player2.Paddle, ref ball.X_Speed, 1);
             }
 
-            // After 3 collisions, increase xSpeed by 1
-            if (paddleCollisionCount >= 3)
+            // Check if it's time to increase the speed of the ball.
+            if (paddleCollisionCount >= nextCollisionThreshold)
             {
-                ball.X_Speed = ball.X_Speed < 0 ? ball.X_Speed - 1 : ball.X_Speed + 1; // Increase speed (both directions)
-                paddleCollisionCount = 0; // Reset collision count
+                // Time to increase the ball's speed
+                // If the ball is moving left (negative X_Speed), decrease its speed (make it more negative)
+                // If the ball is moving right (positive X_Speed), increase its speed (make it more positive)
+                ball.X_Speed = ball.X_Speed < 0 ? ball.X_Speed - 1 : ball.X_Speed + 1;
+
+                paddleCollisionCount = 0; // Reset the collision count after the speed increase
+
+                // Randomize the number of collisions needed for the next speed increase (between 3 and 6)
+                nextCollisionThreshold = random.Next(3, 7);
             }
 
             // Ball off the left or right side (score points)
@@ -144,7 +159,6 @@ namespace WinFormsApp1
 
             // Ball X and Y direction movement randomized 
             // -(3-5) < X/Y < (3-5)
-            Random random = new();
             ball.X_Speed = random.Next(3, 6) * (random.Next(0, 2) == 0 ? -1 : 1);
             ball.Y_Speed = random.Next(3, 6) * (random.Next(0, 2) == 0 ? -1 : 1);
         }
