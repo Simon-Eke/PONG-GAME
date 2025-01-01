@@ -21,7 +21,7 @@ namespace WinFormsApp1
         {
             random = new Random(); // Initialize the random generator for later use
 
-            ball = new Ball(300, 225, 4, 4);
+            ball = new Ball(400, random.Next(1, 450), 4 * (random.Next(0, 2) == 0 ? -1 : 1), 4 * (random.Next(0, 2) == 0 ? -1 : 1));
             player1 = new Player(20);
             player2 = new Player(780);
 
@@ -150,16 +150,16 @@ namespace WinFormsApp1
 
         public void ResetBall()
         {
-            // Reset ball to the center
+            // Reset ball to the center line but in a slight different height.
             ball.X_Position = Form1.ActiveForm.ClientSize.Width / 2;
-            ball.Y_Position = Form1.ActiveForm.ClientSize.Height / 2;
+            ball.Y_Position = random.Next(0, Form1.ActiveForm.ClientSize.Height);
 
             // Reset collision count
             paddleCollisionCount = 0;
 
             // Ball X and Y direction movement randomized 
-            // -(3-5) < X/Y < (3-5)
-            ball.X_Speed = random.Next(3, 6) * (random.Next(0, 2) == 0 ? -1 : 1);
+            // -(3-5) < Y < (3-5) && -(4-5) < X < (4-5)
+            ball.X_Speed = random.Next(4, 6) * (random.Next(0, 2) == 0 ? -1 : 1);
             ball.Y_Speed = random.Next(3, 6) * (random.Next(0, 2) == 0 ? -1 : 1);
         }
 
