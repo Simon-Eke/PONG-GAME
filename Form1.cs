@@ -55,8 +55,30 @@ namespace WinFormsApp1
             Graphics g = e.Graphics;
             g.Clear(Color.Black);
             game.Draw(g);
-            g.DrawString($"Player 1: {game.GetPlayer1Score()} Player 2: {game.GetPlayer2Score()}  Speed: {Math.Abs(game.GetBallSpeed())}",
-                new Font("Arial", 16), Brushes.White, 10, 10);
+            // Use a font like "Courier New" or "Consolas" to get the blocky appearance.
+            //g.DrawString($"Player 1: {game.GetPlayer1Score()} Player 2: {game.GetPlayer2Score()}  Speed: {Math.Abs(game.GetBallSpeed())}",
+            //    new Font("Arial", 16), Brushes.White, 10, 10); - OLD CODE
+
+            // Set up the blocky font (monospace)
+            Font blockyFont = new Font("Consolas", 16, FontStyle.Bold);
+
+            // Get the score as text
+            string scoreText = $"Player 1: {game.GetPlayer1Score()}  Player 2: {game.GetPlayer2Score()}";
+
+            // Calculate the size of the text to center it
+            SizeF textSize = g.MeasureString(scoreText, blockyFont);
+
+            // Define the rectangle for the box
+            int boxWidth = (int)textSize.Width + 20; // Add some padding
+            int boxHeight = (int)textSize.Height + 10; // Add padding for height
+            int boxX = (Form1.ActiveForm.ClientSize.Width - boxWidth) / 2; // Center horizontally
+            int boxY = 10; // Set some vertical margin from the top
+
+            // Draw the box (border)
+            g.DrawRectangle(Pens.White, boxX, boxY, boxWidth, boxHeight);
+
+            // Draw the score text inside the box, centered
+            g.DrawString(scoreText, blockyFont, Brushes.White, boxX + 10, boxY + 5); // Padding inside box
         }
     }
 }

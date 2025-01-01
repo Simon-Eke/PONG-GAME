@@ -33,7 +33,9 @@ namespace WinFormsApp1
         // Draw the ball on the form
         public void Draw(Graphics g)
         {
-            g.FillEllipse(Brushes.White, X_Position, Y_Position, Size, Size);
+            // Change Ball's shape
+            g.FillRectangle(Brushes.White, X_Position, Y_Position, Size, Size);
+            // g.FillEllipse(Brushes.White, X_Position, Y_Position, Size, Size);
         }
 
     }
